@@ -1,7 +1,8 @@
 from openpyxl import load_workbook
 import csv
 from datetime import date, timedelta
-
+import errno
+import os
 
 def get_date_list(holidays, custom, today = date.today()):
     month = ['NULL' ,'JAN' , 'FEB' , 'MAR' , 'APR' , 'MAY' , 'JUN' , 'JUL' , 'AUG' , 'SEP' , 'OCT' , 'NOV' , 'DEC']
@@ -65,9 +66,9 @@ def get_date_list(holidays, custom, today = date.today()):
     temp = ""
     for i in required_days:    
         if i.day < 10:
-            temp = "D:/MATA/India/Data/Bhavcopy/NSE-EOD/cm0" + str(i.day) + month[i.month] + str(i.year) + "bhav.csv"
+            temp = "E:/Data/NSE-EOD/cm0" + str(i.day) + month[i.month] + str(i.year) + "bhav.csv"
         else:
-            temp = "D:/MATA/India/Data/Bhavcopy/NSE-EOD/cm" + str(i.day) + month[i.month] + str(i.year) + "bhav.csv"
+            temp = "E:/Data/NSE-EOD/cm" + str(i.day) + month[i.month] + str(i.year) + "bhav.csv"
         
         src_list.append(temp)
     
@@ -94,9 +95,15 @@ for i in range(3,ws.max_row+1) :
     companies.append(ws.cell(i,1).value)
     
 for data_source in range(0,len(src_list)):
-      
-    d = open(src_list[data_source])
-    reader = csv.reader(d)
+    
+    
+    
+    try:  
+        d = open(src_list[data_source])
+        reader = csv.reader(d)
+    except:
+        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), src_list[data_source])
+    
 
     data = {}
 
