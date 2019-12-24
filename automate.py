@@ -102,7 +102,7 @@ for data_source in range(0,len(src_list)):
 
     for value in reader:
         if value[1] == 'EQ':
-            data[value[0]] = value[5]
+            data[value[0]] = float(value[5])
         
     data_from = []
     for company in companies:
