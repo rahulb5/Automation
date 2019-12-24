@@ -76,8 +76,8 @@ def get_date_list(holidays, custom, today = date.today()):
 dest= "E:/Data/Nifty FNO Scrips_automate.xlsm"
 
 wb = load_workbook(dest, keep_vba=True, keep_links= False, data_only=True)
-ws = wb.get_sheet_by_name("FNO_Historic_Data")
-ws_working = wb.get_sheet_by_name("Working")
+ws = wb["FNO_Historic_Data"]
+ws_working = wb["Working"]
 
 count = 3 
 holidays = []
